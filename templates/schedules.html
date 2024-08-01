@@ -17,13 +17,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for period in ["period1", "period2", "Tutorial", "period3", "Brunch", "period4", "period5", "Lunch", "period6", "period7"] %}
             <tr>
-                <td>{{ period }}</td>
-                {% for day in ["monday", "tuesday", "wednesday", "thursday", "friday"] %}
+                <td>1</td>
                 <td>
                     {% for schedule in schedules %}
-                        {% set entry = schedule.schedule.semester1[period] %}
+                        {% set entry = schedule.schedule.semester1.get('period1') %}
                         {% if entry %}
                             <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
                                 <strong>{{ entry.class }}</strong><br>
@@ -33,9 +31,318 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                {% endfor %}
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period1') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period1') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
             </tr>
-            {% endfor %}
+            <tr>
+                <td>2</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period2') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period2') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Tutorial</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Tutorial') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Tutorial') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period3') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period3') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Brunch</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Brunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Brunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period4') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period4') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period4') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period5') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period5') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Lunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Lunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('Lunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period6') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period6') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period7') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period7') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1.get('period7') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
@@ -54,13 +361,11 @@
             </tr>
         </thead>
         <tbody>
-            {% for period in ["period1", "period2", "Tutorial", "period3", "Brunch", "period4", "period5", "Lunch", "period6", "period7"] %}
             <tr>
-                <td>{{ period }}</td>
-                {% for day in ["monday", "tuesday", "wednesday", "thursday", "friday"] %}
+                <td>1</td>
                 <td>
                     {% for schedule in schedules %}
-                        {% set entry = schedule.schedule.semester2[period] %}
+                        {% set entry = schedule.schedule.semester2.get('period1') %}
                         {% if entry %}
                             <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
                                 <strong>{{ entry.class }}</strong><br>
@@ -70,9 +375,318 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-                {% endfor %}
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period1') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period1') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
             </tr>
-            {% endfor %}
+            <tr>
+                <td>2</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period2') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period2') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Tutorial</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Tutorial') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Tutorial') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period3') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period3') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Brunch</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Brunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Brunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period4') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period4') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period4') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period5') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period5') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Lunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Lunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('Lunch') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2"></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period6') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period6') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period7') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period7') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td rowspan="2">
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2.get('period7') %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
