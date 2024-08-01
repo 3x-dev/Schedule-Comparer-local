@@ -1,21 +1,26 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 import os
-import pytesseract
-from PIL import Image
-import openai
+import base64
+import json
+from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 
+# Initialize Flask app
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///schedules.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-openai.api_key = 'your_openai_api_key'
+load_dotenv()
+
+openai_api_key = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=openai_api_key)
+
 db = SQLAlchemy(app)
 
 class Schedule(db.Model):
@@ -27,18 +32,36 @@ class Schedule(db.Model):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-def ocr_core(filename):
-    text = pytesseract.image_to_string(Image.open(filename))
-    return text
+def load_json_schema(schema_file: str) -> dict:
+    with open(schema_file, 'r') as file:
+        return json.load(file)
 
-def extract_schedule(text):
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=f"Extract the class schedule from the following text:\n\n{text}",
-        max_tokens=150
+def get_gpt_response(image_path, schema):
+    with open(image_path, 'rb') as image_file:
+        image_base64 = base64.b64encode(image_file.read()).decode('utf-8')
+
+    response = client.chat.completions.create(
+        model='gpt-4o',
+        response_format={"type": "json_object"},
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "Provide a JSON file that represents this document. Use this JSON Schema: " +
+                        json.dumps(schema)},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{image_base64}"
+                        }
+                    }
+                ]
+            }
+        ],
+        max_tokens=500,
     )
-    schedule = response.choices[0].text.strip()
-    return schedule
+
+    return json.loads(response.choices[0].message.content)
 
 @app.route('/')
 def index():
@@ -58,10 +81,15 @@ def verify():
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filepath)
 
-        text = ocr_core(filepath)
-        schedule = extract_schedule(text)
+        schema = load_json_schema('schedule_schema.json')
+        schedule = get_gpt_response(filepath, schema)
 
-        return render_template('verify.html', name=request.form['name'], grade=request.form['grade'], schedule=schedule)
+        schedule['studentName'] = request.form['name']
+        schedule['grade'] = request.form['grade']
+
+        formatted_schedule = json.dumps(schedule)
+
+        return render_template('verify.html', schedule=schedule, formatted_schedule=formatted_schedule)
 
     return 'File not allowed', 400
 
@@ -69,9 +97,9 @@ def verify():
 def confirm():
     name = request.form['name']
     grade = request.form['grade']
-    schedule = request.form['schedule']
+    schedule = json.loads(request.form['formatted_schedule'])
 
-    new_schedule = Schedule(name=name, grade=grade, schedule=schedule)
+    new_schedule = Schedule(name=name, grade=grade, schedule=json.dumps(schedule))
     db.session.add(new_schedule)
     db.session.commit()
 
@@ -80,7 +108,17 @@ def confirm():
 @app.route('/schedules')
 def schedules():
     all_schedules = Schedule.query.all()
-    return render_template('schedules.html', schedules=all_schedules)
+    schedules_list = [
+        {
+            "name": schedule.name,
+            "grade": schedule.grade,
+            "schedule": json.loads(schedule.schedule)
+        }
+        for schedule in all_schedules
+    ]
+    print(schedules_list)  # Debugging line
+    return render_template('schedules.html', schedules=schedules_list)
+
 
 if __name__ == '__main__':
     with app.app_context():

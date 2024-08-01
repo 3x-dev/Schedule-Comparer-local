@@ -1,38 +1,61 @@
-document.getElementById('scheduleForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('scheduleForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-    const nameInput = document.getElementById('name');
-    const gradeSelect = document.getElementById('grade');
-    const nameError = document.getElementById('nameError');
+        const nameInput = document.getElementById('name');
+        const gradeSelect = document.getElementById('grade');
+        const scheduleImageInput = document.getElementById('scheduleImage');
+        const nameError = document.getElementById('nameError');
+        const resultDiv = document.getElementById('result');
 
-    let valid = true;
+        let valid = true;
 
-    if (nameInput.value.trim() === '') {
-        nameError.textContent = 'Name is required';
-        nameError.style.display = 'block';
-        valid = false;
-    } else {
+        // Clear previous errors
         nameError.textContent = '';
         nameError.style.display = 'none';
-    }
+        resultDiv.textContent = '';
 
-    if (gradeSelect.value === '') {
-        alert('Please select your grade');
-        valid = false;
-    }
+        // Validate name
+        if (nameInput.value.trim() === '') {
+            nameError.textContent = 'Name is required';
+            nameError.style.display = 'block';
+            valid = false;
+        }
 
-    if (!valid) return;
+        // Validate grade
+        if (gradeSelect.value === '') {
+            alert('Please select your grade');
+            valid = false;
+        }
 
-    const formData = new FormData();
-    formData.append('name', nameInput.value);
-    formData.append('grade', gradeSelect.value);
-    formData.append('scheduleImage', document.getElementById('scheduleImage').files[0]);
+        // Validate schedule image
+        if (!scheduleImageInput.files.length) {
+            alert('Please upload a schedule image');
+            valid = false;
+        }
 
-    const response = await fetch('/upload', {
-        method: 'POST',
-        body: formData
+        if (!valid) return;
+
+        const formData = new FormData(document.getElementById('scheduleForm'));
+        formData.append('name', nameInput.value);
+        formData.append('grade', gradeSelect.value);
+        formData.append('scheduleImage', scheduleImageInput.files[0]);
+
+        try {
+            const response = await fetch('/verify', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                window.location.href = '/verify';
+            } else {
+                const result = await response.json();
+                resultDiv.innerText = result.message || 'An error occurred during submission';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            resultDiv.innerText = 'An error occurred during submission';
+        }
     });
-
-    const result = await response.json();
-    document.getElementById('result').innerText = result.message;
 });

@@ -1,22 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedules</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div class="form-wrapper">
-            <h1>All Schedules</h1>
-            {% for schedule in schedules %}
-            <div class="schedule-item">
-                <h2>{{ schedule.name }} ({{ schedule.grade }})</h2>
-                <pre>{{ schedule.schedule }}</pre>
-            </div>
+{% extends "base.html" %}
+
+{% block content %}
+<h1>All Submitted Schedules</h1>
+
+<h2>Semester 1</h2>
+<div class="table-responsive">
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for period in ["period1", "period2", "Tutorial", "period3", "Brunch", "period4", "period5", "Lunch", "period6", "period7"] %}
+            <tr>
+                <td>{{ period }}</td>
+                {% for day in ["monday", "tuesday", "wednesday", "thursday", "friday"] %}
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester1[period] %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </div>
-    </div>
-</body>
-</html>
+        </tbody>
+    </table>
+</div>
+
+<h2>Semester 2</h2>
+<div class="table-responsive">
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Period</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for period in ["period1", "period2", "Tutorial", "period3", "Brunch", "period4", "period5", "Lunch", "period6", "period7"] %}
+            <tr>
+                <td>{{ period }}</td>
+                {% for day in ["monday", "tuesday", "wednesday", "thursday", "friday"] %}
+                <td>
+                    {% for schedule in schedules %}
+                        {% set entry = schedule.schedule.semester2[period] %}
+                        {% if entry %}
+                            <div class="schedule-entry" data-toggle="tooltip" title="{{ schedule.name }} - {{ entry.class }}">
+                                <strong>{{ entry.class }}</strong><br>
+                                <span>{{ entry.teacher }}</span><br>
+                                <em>{{ schedule.name }}</em>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .schedule-entry {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+{% endblock %}

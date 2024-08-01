@@ -1,40 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Schedule Uploader</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div class="form-wrapper">
-            <h1>Upload Your School Schedule</h1>
-            <form id="scheduleForm" action="/verify" method="POST" enctype="multipart/form-data">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <span id="nameError" class="error"></span>
+{% extends "base.html" %}
 
-                <label for="grade">Grade:</label>
-                <select id="grade" name="grade" required>
-                    <option value="" disabled selected>Select your grade</option>
-                    <option value="6">6th Grade</option>
-                    <option value="7">7th Grade</option>
-                    <option value="8">8th Grade</option>
-                    <option value="9">9th Grade</option>
-                    <option value="10">10th Grade</option>
-                    <option value="11">11th Grade</option>
-                    <option value="12">12th Grade</option>
-                </select>
-
-                <label for="scheduleImage">Upload Schedule Image:</label>
-                <input type="file" id="scheduleImage" name="scheduleImage" accept="image/*" required>
-
-                <button type="submit">Submit</button>
-            </form>
-            <div id="result"></div>
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Submit Your Schedule</h1>
+    <p class="lead">Upload your schedule and we'll extract and verify the information for you.</p>
+    <hr class="my-4">
+    <form id="scheduleForm" action="/verify" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
+        <div class="form-group">
+            <label for="grade">Grade:</label>
+            <select class="form-control" id="grade" name="grade" required>
+                <option value="9th">9th</option>
+                <option value="10th">10th</option>
+                <option value="11th">11th</option>
+                <option value="12th">12th</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="scheduleImage">Upload Schedule Image:</label>
+            <input type="file" class="form-control-file" id="scheduleImage" name="scheduleImage" accept=".png, .jpg, .jpeg" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="loadingSpinner" style="display:none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p>Verifying schedule, please wait...</p>
     </div>
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
+
+<script>
+    document.getElementById('scheduleForm').onsubmit = function() {
+        document.getElementById('scheduleForm').style.display = 'none';
+        document.getElementById('loadingSpinner').style.display = 'block';
+    };
+</script>
+{% endblock %}

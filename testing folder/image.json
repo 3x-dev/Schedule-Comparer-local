@@ -1,0 +1,64 @@
+{
+    "studentName": "Student Name Placeholder",
+    "grade": "Grade Placeholder",
+    "semester1": {
+        "period1": {
+            "class": null,
+            "teacher": null
+        },
+        "period2": {
+            "class": "AP Environ Science",
+            "teacher": "Kenneth Gan"
+        },
+        "period3": {
+            "class": "IS: STEM Research",
+            "teacher": "Kavita Gupta"
+        },
+        "period4": {
+            "class": "PE Wt Training",
+            "teacher": "Jeffrey Thomas"
+        },
+        "period5": {
+            "class": "AP Macroeconomics",
+            "teacher": "Scott V Victorine"
+        },
+        "period6": {
+            "class": "Myth/Folk/Writ",
+            "teacher": "Megan C Choate"
+        },
+        "period7": {
+            "class": "AP Statistics",
+            "teacher": "Jeffrey G Payne"
+        }
+    },
+    "semester2": {
+        "period1": {
+            "class": null,
+            "teacher": null
+        },
+        "period2": {
+            "class": "AP Environ Science",
+            "teacher": "Kenneth Gan"
+        },
+        "period3": {
+            "class": "IS: STEM Research",
+            "teacher": "Kavita Gupta"
+        },
+        "period4": {
+            "class": "PE Wt Training",
+            "teacher": "Jeffrey Thomas"
+        },
+        "period5": {
+            "class": "AP US Govt & Pol",
+            "teacher": "Benjamin B Reckenwald"
+        },
+        "period6": {
+            "class": "Myth/Folk/Writ",
+            "teacher": "Megan C Choate"
+        },
+        "period7": {
+            "class": "AP Statistics",
+            "teacher": "Jeffrey G Payne"
+        }
+    }
+}
