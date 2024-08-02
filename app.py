@@ -6,7 +6,6 @@ import json
 from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-from whitenoise import WhiteNoise
 
 load_dotenv()
 
@@ -14,13 +13,10 @@ load_dotenv()
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-
-# Configure Whitenoise for serving static files
-app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/', prefix='static/')
 
 openai_api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=openai_api_key)
