@@ -7,6 +7,8 @@ from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
+load_dotenv()
+
 # Initialize Flask app
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -15,8 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///schedules.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-
-load_dotenv()
 
 openai_api_key = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=openai_api_key)
