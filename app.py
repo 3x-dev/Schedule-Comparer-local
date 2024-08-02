@@ -61,7 +61,12 @@ def get_gpt_response(image_path, schema):
         max_tokens=500,
     )
 
-    return json.loads(response.choices[0].message.content)
+    try:
+        return json.loads(response.choices[0].message.content)
+    except json.JSONDecodeError as e:
+        print(f"JSON decode error: {e}")
+        print(f"Response content: {response.choices[0].message.content}")
+        raise
 
 @app.route('/')
 def index():
@@ -82,7 +87,10 @@ def verify():
         file.save(filepath)
 
         schema = load_json_schema('schedule_schema.json')
-        schedule = get_gpt_response(filepath, schema)
+        try:
+            schedule = get_gpt_response(filepath, schema)
+        except json.JSONDecodeError:
+            return 'Invalid JSON response from GPT API', 500
 
         schedule['studentName'] = request.form['name']
         schedule['grade'] = request.form['grade']
@@ -118,7 +126,6 @@ def schedules():
     ]
     print(schedules_list)  # Debugging line
     return render_template('schedules.html', schedules=schedules_list)
-
 
 if __name__ == '__main__':
     with app.app_context():
