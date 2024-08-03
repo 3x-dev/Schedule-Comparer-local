@@ -1,58 +1,62 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Verify Your Schedule</h1>
-<p>Please verify the extracted schedule information below. You can make changes to the class name and teacher fields if needed. If it looks correct, click confirm to save your schedule.</p>
+<div class="container my-5">
+    <h1 class="text-center"><strong>Verify Your Schedule</strong></h1>
+    <p class="lead text-center">Please verify the extracted schedule information below. You can make changes to the class name and teacher fields if needed. If it looks correct, click confirm to save your schedule.</p>
 
-<form action="/confirm" method="post">
-    <input type="hidden" name="name" value="{{ schedule.studentName }}">
-    <input type="hidden" name="grade" value="{{ schedule.grade }}">
-    <input type="hidden" name="formatted_schedule" id="formatted_schedule">
+    <form action="/confirm" method="post">
+        <input type="hidden" name="name" value="{{ schedule.studentName }}">
+        <input type="hidden" name="grade" value="{{ schedule.grade }}">
+        <input type="hidden" name="formatted_schedule" id="formatted_schedule">
 
-    <h2>{{ schedule.studentName }} (Grade: {{ schedule.grade }})</h2>
+        <h2 class="text-center my-4">{{ schedule.studentName }} <small>(Grade: {{ schedule.grade }})</small></h2>
 
-    <h3>Semester 1</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Period</th>
-                <th>Class</th>
-                <th>Teacher</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for period, details in schedule.semester1.items() %}
-            <tr>
-                <td>{{ period }}</td>
-                <td><input type="text" class="form-control" name="semester1-{{ period }}-class" value="{{ details.class }}"></td>
-                <td><input type="text" class="form-control" name="semester1-{{ period }}-teacher" value="{{ details.teacher }}"></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <h3 class="my-4"><strong>Semester 1</strong></h3>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Period</th>
+                    <th>Class</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for period, details in schedule.semester1.items() %}
+                <tr>
+                    <td><strong>{{ period }}</strong></td>
+                    <td><input type="text" class="form-control" name="semester1-{{ period }}-class" value="{{ details.class }}"></td>
+                    <td><input type="text" class="form-control" name="semester1-{{ period }}-teacher" value="{{ details.teacher }}"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <h3>Semester 2</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Period</th>
-                <th>Class</th>
-                <th>Teacher</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for period, details in schedule.semester2.items() %}
-            <tr>
-                <td>{{ period }}</td>
-                <td><input type="text" class="form-control" name="semester2-{{ period }}-class" value="{{ details.class }}"></td>
-                <td><input type="text" class="form-control" name="semester2-{{ period }}-teacher" value="{{ details.teacher }}"></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <h3 class="my-4"><strong>Semester 2</strong></h3>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Period</th>
+                    <th>Class</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for period, details in schedule.semester2.items() %}
+                <tr>
+                    <td><strong>{{ period }}</strong></td>
+                    <td><input type="text" class="form-control" name="semester2-{{ period }}-class" value="{{ details.class }}"></td>
+                    <td><input type="text" class="form-control" name="semester2-{{ period }}-teacher" value="{{ details.teacher }}"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-    <button type="submit" class="btn btn-success">Confirm</button>
-</form>
+        <div class="text-center my-4">
+            <button type="submit" class="btn btn-success btn-lg px-5 py-2" style="font-size: 1.5em;">Confirm</button>
+        </div>
+    </form>
+</div>
 
 <script>
     document.querySelector('form').onsubmit = function(event) {

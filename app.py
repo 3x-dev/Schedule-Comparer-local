@@ -6,6 +6,7 @@ import json
 from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+import time
 
 load_dotenv()
 
@@ -36,37 +37,54 @@ def load_json_schema(schema_file: str) -> dict:
     with open(schema_file, 'r') as file:
         return json.load(file)
 
-def get_gpt_response(image_path, schema):
+def get_gpt_response(image_path, schema, retries=3):
     with open(image_path, 'rb') as image_file:
         image_base64 = base64.b64encode(image_file.read()).decode('utf-8')
 
-    response = client.chat.completions.create(
-        model='gpt-4o',
-        response_format={"type": "json_object"},
-        messages=[
-            {
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": "Provide a JSON file that represents this document. Use this JSON Schema: " +
-                        json.dumps(schema)},
+    for attempt in range(retries):
+        try:
+            response = client.chat.completions.create(
+                model='gpt-4o',
+                response_format={"type": "json_object"},
+                messages=[
                     {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/jpeg;base64,{image_base64}"
-                        }
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": "Provide a JSON file that represents this document. Use this JSON Schema: " +
+                                json.dumps(schema)},
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/jpeg;base64,{image_base64}"
+                                }
+                            }
+                        ]
                     }
-                ]
-            }
-        ],
-        max_tokens=500,
-    )
+                ],
+                max_tokens=500,
+            )
 
-    try:
-        return json.loads(response.choices[0].message.content)
-    except json.JSONDecodeError as e:
-        print(f"JSON decode error: {e}")
-        print(f"Response content: {response.choices[0].message.content}")
-        raise
+            return json.loads(response.choices[0].message.content)
+        except (json.JSONDecodeError, Exception) as e:
+            print(f"Attempt {attempt + 1} failed: {e}")
+            if attempt < retries - 1:
+                time.sleep(2)  # wait before retrying
+            else:
+                raise
+    raise Exception("Maximum retry attempts reached")
+
+# Define a list of pastel colors following the rainbow pattern
+PASTEL_COLORS = [
+    "#FFB3BA",  # light red
+    "#FFDFBA",  # light orange
+    "#FFFFBA",  # light yellow
+    "#BAFFC9",  # light green
+    "#BAE1FF",  # light blue
+    "#E3BAFF",  # light purple
+]
+
+def generate_color(index):
+    return PASTEL_COLORS[index % len(PASTEL_COLORS)]
 
 @app.route('/')
 def index():
@@ -87,10 +105,15 @@ def verify():
         file.save(filepath)
 
         schema = load_json_schema('schedule_schema.json')
-        try:
-            schedule = get_gpt_response(filepath, schema)
-        except json.JSONDecodeError:
-            return 'Invalid JSON response from GPT API', 500
+        for attempt in range(3):
+            try:
+                schedule = get_gpt_response(filepath, schema)
+                break
+            except Exception as e:
+                if attempt < 2:
+                    print(f"GPT API call failed, retrying... (Attempt {attempt + 1})")
+                else:
+                    return 'Failed to process the image. Please ensure it is a correct schedule image and try again.', 500
 
         schedule['studentName'] = request.form['name']
         schedule['grade'] = request.form['grade']
@@ -116,15 +139,35 @@ def confirm():
 @app.route('/schedules')
 def schedules():
     all_schedules = Schedule.query.all()
+
+    # Create a dictionary to track shared classes
+    shared_classes = {}
+    index_counter = 0
+    
+    for schedule in all_schedules:
+        schedule_data = json.loads(schedule.schedule)
+        for period, entry in schedule_data['semester1'].items():
+            key = f"{entry['class']}_{period}"
+            if key not in shared_classes:
+                shared_classes[key] = generate_color(index_counter)
+                index_counter += 1
+
+        for period, entry in schedule_data['semester2'].items():
+            key = f"{entry['class']}_{period}"
+            if key not in shared_classes:
+                shared_classes[key] = generate_color(index_counter)
+                index_counter += 1
+
     schedules_list = [
         {
             "name": schedule.name,
             "grade": schedule.grade,
-            "schedule": json.loads(schedule.schedule)
+            "schedule": json.loads(schedule.schedule),
+            "colors": shared_classes
         }
         for schedule in all_schedules
     ]
-    print(schedules_list)  # Debugging line
+
     return render_template('schedules.html', schedules=schedules_list)
 
 if __name__ == '__main__':

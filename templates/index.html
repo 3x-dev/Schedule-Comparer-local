@@ -2,17 +2,18 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Submit Your Schedule</h1>
-    <p class="lead">Upload your schedule and we'll extract and verify the information for you.</p>
+    <h1 class="display-4"><strong>Submit Your Schedule</strong></h1>
+    <p class="lead">Upload your schedule and we'll compare it with other students' schedules!</p>
     <hr class="my-4">
     <form id="scheduleForm" action="/verify" method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="name">Name:</label>
+            <label for="name"><strong>Name:</strong></label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
         <div class="form-group">
-            <label for="grade">Grade:</label>
+            <label for="grade"><strong>Grade:</strong></label>
             <select class="form-control" id="grade" name="grade" required>
+                <option value="" disabled selected>Select your grade</option>
                 <option value="9th">9th</option>
                 <option value="10th">10th</option>
                 <option value="11th">11th</option>
@@ -20,23 +21,35 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="scheduleImage">Upload Schedule Image:</label>
+            <label for="scheduleImage"><strong>Upload Schedule Image:</strong></label>
             <input type="file" class="form-control-file" id="scheduleImage" name="scheduleImage" accept=".png, .jpg, .jpeg" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <div id="loadingSpinner" style="display:none;">
+    <div id="loadingSpinner" class="text-center mt-3" style="display:none;">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
         </div>
         <p>Verifying schedule, please wait...</p>
+        <button type="button" class="btn btn-danger" id="cancelButton">Cancel</button>
     </div>
 </div>
 
 <script>
+    let verificationInProgress = false;
+
     document.getElementById('scheduleForm').onsubmit = function() {
+        verificationInProgress = true;
         document.getElementById('scheduleForm').style.display = 'none';
         document.getElementById('loadingSpinner').style.display = 'block';
+    };
+
+    document.getElementById('cancelButton').onclick = function() {
+        if (verificationInProgress) {
+            verificationInProgress = false;
+            document.getElementById('scheduleForm').style.display = 'block';
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
     };
 </script>
 {% endblock %}
