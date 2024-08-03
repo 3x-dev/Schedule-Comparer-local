@@ -1,144 +1,143 @@
 {
-    "$schema": "http://json-schema.org/draft/2020-12/schema",
-    "title": "SchoolSchedule",
-    "description": "A structured format for school schedules",
-    "type": "object",
-    "properties": {
-      "studentName": {
-        "description": "The name of the student.",
-        "type": "string"
-      },
-      "grade": {
-        "description": "The grade of the student.",
-        "type": "string"
-      },
-      "semester1": {
-        "description": "Schedule for the first semester.",
-        "type": "object",
-        "properties": {
-          "period1": {
-            "description": "Details for period 1",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period2": {
-            "description": "Details for period 2",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period3": {
-            "description": "Details for period 3",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period4": {
-            "description": "Details for period 4",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period5": {
-            "description": "Details for period 5",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period6": {
-            "description": "Details for period 6",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period7": {
-            "description": "Details for period 7",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          }
-        },
-        "required": ["period1", "period2", "period3", "period4", "period5", "period6", "period7"]
-      },
-      "semester2": {
-        "description": "Schedule for the second semester.",
-        "type": "object",
-        "properties": {
-          "period1": {
-            "description": "Details for period 1",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period2": {
-            "description": "Details for period 2",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period3": {
-            "description": "Details for period 3",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period4": {
-            "description": "Details for period 4",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period5": {
-            "description": "Details for period 5",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period6": {
-            "description": "Details for period 6",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          },
-          "period7": {
-            "description": "Details for period 7",
-            "type": "object",
-            "properties": {
-              "class": { "type": ["string", "null"] },
-              "teacher": { "type": ["string", "null"] }
-            }
-          }
-        },
-        "required": ["period1", "period2", "period3", "period4", "period5", "period6", "period7"]
-      }
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "title": "SchoolSchedule",
+  "description": "A structured format for school schedules",
+  "type": "object",
+  "properties": {
+    "studentName": {
+      "description": "The name of the student.",
+      "type": "string"
     },
-    "required": ["studentName", "grade", "semester1", "semester2"]
-  }
-  
+    "grade": {
+      "description": "The grade of the student.",
+      "type": "string"
+    },
+    "semester1": {
+      "description": "Schedule for the first semester.",
+      "type": "object",
+      "properties": {
+        "period1": {
+          "description": "Details for period 1",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period2": {
+          "description": "Details for period 2",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period3": {
+          "description": "Details for period 3",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period4": {
+          "description": "Details for period 4",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period5": {
+          "description": "Details for period 5",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period6": {
+          "description": "Details for period 6",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period7": {
+          "description": "Details for period 7",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        }
+      },
+      "required": ["period1", "period2", "period3", "period4", "period5", "period6", "period7"]
+    },
+    "semester2": {
+      "description": "Schedule for the second semester.",
+      "type": "object",
+      "properties": {
+        "period1": {
+          "description": "Details for period 1",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period2": {
+          "description": "Details for period 2",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period3": {
+          "description": "Details for period 3",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period4": {
+          "description": "Details for period 4",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period5": {
+          "description": "Details for period 5",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period6": {
+          "description": "Details for period 6",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        },
+        "period7": {
+          "description": "Details for period 7",
+          "type": "object",
+          "properties": {
+            "class": { "type": ["string", "null"] },
+            "teacher": { "type": ["string", "null"] }
+          }
+        }
+      },
+      "required": ["period1", "period2", "period3", "period4", "period5", "period6", "period7"]
+    }
+  },
+  "required": ["studentName", "grade", "semester1", "semester2"]
+}
