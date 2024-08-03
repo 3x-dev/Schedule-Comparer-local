@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask import Flask, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 import base64
@@ -6,11 +6,14 @@ import json
 from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///schedules.db'
@@ -70,16 +73,16 @@ def get_gpt_response(image_path, schema):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return jsonify({"message": "Welcome to the Schedule Comparer API"})
 
 @app.route('/verify', methods=['POST'])
 def verify():
     if 'scheduleImage' not in request.files:
-        return 'No file part', 400
+        return jsonify({"message": "No file part"}), 400
 
     file = request.files['scheduleImage']
     if file.filename == '':
-        return 'No selected file', 400
+        return jsonify({"message": "No selected file"}), 400
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -90,16 +93,16 @@ def verify():
         try:
             schedule = get_gpt_response(filepath, schema)
         except json.JSONDecodeError:
-            return 'Invalid JSON response from GPT API', 500
+            return jsonify({"message": "Invalid JSON response from GPT API"}), 500
 
         schedule['studentName'] = request.form['name']
         schedule['grade'] = request.form['grade']
 
         formatted_schedule = json.dumps(schedule)
 
-        return render_template('verify.html', schedule=schedule, formatted_schedule=formatted_schedule)
+        return jsonify({"message": "Success", "schedule": schedule, "formatted_schedule": formatted_schedule}), 200
 
-    return 'File not allowed', 400
+    return jsonify({"message": "File not allowed"}), 400
 
 @app.route('/confirm', methods=['POST'])
 def confirm():
@@ -125,7 +128,7 @@ def schedules():
         for schedule in all_schedules
     ]
     print(schedules_list)  # Debugging line
-    return render_template('schedules.html', schedules=schedules_list)
+    return jsonify(schedules_list)
 
 if __name__ == '__main__':
     with app.app_context():
